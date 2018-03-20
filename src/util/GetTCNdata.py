@@ -29,7 +29,7 @@ class GetTCNdata():
         #lat = dataset.variables['lat'][:]
         #lon = dataset.variables['lon'][:]
         var = dataset.variables[ncVar][:]
-        print(var.shape)
+        print(len(var),"Var shape ",var)
         varm = np.mean(var)
         print("var por año ::::::::::: \n",varm)
         var_units = dataset.variables[ncVar].units
@@ -39,9 +39,12 @@ class GetTCNdata():
         print("rr length ",len(var))
         return var
 
-    def data(self, añoI, añoF,rutaGen):
+    def unirData(self, añoI, añoF,rutaGen,var):
+
         for a in range(añoI,añoF):
-            print("hola")
+            rutanc=rutaGen+str(a)+".nc"
+            varnc=nc.getData(ruta,var)
+            print(rutanc)
 
         print("")
 
@@ -112,5 +115,7 @@ class GetTCNdata():
 ##/media/drosero/Datos/Hydrobid/Dinamico/Mensuales/TMed/RCP45/tas_day_Ecuador_Ensamble_rcp45_2011.nc
 ##"/media/drosero/Datos/Hydrobid/Dinamico/Mensuales/TMed/RCP45/tas_day_Ecuador_CSIRO-Mk3-6-0_rcp45_2011.nc"
 ruta="/media/drosero/Datos/Hydrobid/Dinamico/Diarios/TMed/RCP45/tas_day_Ecuador_Ensamble_rcp45_2011.nc"
+rutagen="/media/drosero/Datos/Hydrobid/Dinamico/Diarios/TMed/RCP45/tas_day_Ecuador_Ensamble_rcp45_"
 nc=GetTCNdata()
-nc.getData(ruta,"temp")
+nc.unirData(2011,2030,rutagen,"temp")
+#nc.getData(ruta,"temp")
