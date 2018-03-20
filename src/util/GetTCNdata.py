@@ -26,8 +26,8 @@ class GetTCNdata():
         # print(dataset.variables)
         """longitud = X, latitud = Y Precipitacion = precipitation"""
         # dataset.
-        lat = dataset.variables['lat'][:]
-        lon = dataset.variables['lon'][:]
+        #lat = dataset.variables['lat'][:]
+        #lon = dataset.variables['lon'][:]
         var = dataset.variables[ncVar][:]
         print(var.shape)
         varm = np.mean(var)
@@ -37,22 +37,14 @@ class GetTCNdata():
 
         print("units" ,var_units)
         print("rr length ",len(var))
+        return var
 
-        ##time serie
-        #cadena = str(añoIn) + "-01-01"
-        #fechas = pd.date_range(start=cadena, periods=len(dataset.variables['T']), freq="MS")
-        # print(fechas)
-        # print("tipo de datos ", type(lon))
-        # cordNC = self.findCoor(lat,lon,lonp=-78.17830278,latp=0.1783027778)
-        #cordNC = self.findCoor(lat, lon, latEst, lonEst)
-        # print(cordNC.items())
-        #print("coordenadas encontradas  ==> ", cordNC["coor"], " posiciones ==> ", cordNC["pos"])
-        # get all values for this lat and lon
-        #rr = dataset.variables[varnc][:, cordNC["pos"][0], cordNC["pos"][1]]
-        # print("rr length ",len(rr),"\n valores de RR \n",rr)
-        # self.getDataAsfile(rr, lat, lon)
-        #data = {"fecha": fechas, "valor": rr}
-        #return pd.DataFrame(data)
+    def data(self, añoI, añoF,rutaGen):
+        for a in range(añoI,añoF):
+            print("hola")
+
+        print("")
+
 
     def getCoord(self, rutaNC):
         """Retorna las coordenadas de las salidasd del modelo WRF"""
