@@ -29,7 +29,7 @@ class GetTCNdata():
         #lat = dataset.variables['lat'][:]
         #lon = dataset.variables['lon'][:]
         var = dataset.variables[ncVar][:]
-        print(len(var),"Var shape ",var)
+        print("len T ",len(var),"len [0] ",len(var[0]),"len [365] ",len(var[365]),"Var shape ",var[0])
         varm = np.mean(var)
         print("var por año ::::::::::: \n",varm)
         var_units = dataset.variables[ncVar].units
