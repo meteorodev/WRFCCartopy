@@ -28,10 +28,19 @@ class GetTCNdata():
         # dataset.
         #lat = dataset.variables['lat'][:]
         #lon = dataset.variables['lon'][:]
+        print("Latitud ..........................................\n", dataset.variables['lat'],
+              "Longitud .........................................\n", dataset.variables['lon'],
+              "Longitud .........................................\n")
         var = dataset.variables[ncVar][:]
-        print("len T ",len(var),"len [0] ",len(var[0]),"len [365] ",len(var[365]),"Var shape ",var[0])
-        varm = np.mean(var)
-        print("var por año ::::::::::: \n",varm)
+        #entendiendo los arrays multidemencionales
+        print("###################################")
+        print("###################################")
+        print("var size",var.size,"var ndim",var.ndim,"Var shape ",var.shape)
+        print("###################################")
+        #var[tiempo,latitud,longitud]
+        print("len T ",var[364,0,0],"len [0] ",len(var[0]),"len [365] ",len(var[2]))
+        varm = var.mean(axis=0)
+        print("longitud :::::::::",varm.size, " : ", len(varm) ,"var por año ::::::::::: \n",varm)
         var_units = dataset.variables[ncVar].units
         #print("latitud ::::::::",dataset.variables['lat'],"longitud :::::::: ",dataset.variables['lon'],"Variable ::::::",dataset.variables[ncVar])
 
@@ -42,9 +51,9 @@ class GetTCNdata():
     def unirData(self, añoI, añoF,rutaGen,var):
 
         for a in range(añoI,añoF):
-            rutanc=rutaGen+str(a)+".nc"
-            varnc=nc.getData(ruta,var)
-            print(rutanc)
+            rutanc=rutaGen+"/tas_day_Ecuador_Ensamble_rcp45_"+str(a)+".nc"
+            varnc=nc.getData(rutanc,var)
+            print("Archivo ==> ",rutanc)
 
         print("")
 
@@ -114,8 +123,10 @@ class GetTCNdata():
 
 ##/media/drosero/Datos/Hydrobid/Dinamico/Mensuales/TMed/RCP45/tas_day_Ecuador_Ensamble_rcp45_2011.nc
 ##"/media/drosero/Datos/Hydrobid/Dinamico/Mensuales/TMed/RCP45/tas_day_Ecuador_CSIRO-Mk3-6-0_rcp45_2011.nc"
-ruta="/media/drosero/Datos/Hydrobid/Dinamico/Diarios/TMed/RCP45/tas_day_Ecuador_Ensamble_rcp45_2011.nc"
-rutagen="/media/drosero/Datos/Hydrobid/Dinamico/Diarios/TMed/RCP45/tas_day_Ecuador_Ensamble_rcp45_"
+
+rutagen="/media/darwin/Darwin/Diarios/TMed/RCP45"
+#rutagen="/media/drosero/Datos/Hydrobid/Dinamico/Diarios/TMed/RCP45"
+#rutagen="/media/drosero/Datos/Hydrobid/Dinamico/Diarios/TMed/RCP45/tas_day_Ecuador_Ensamble_rcp45_"
 nc=GetTCNdata()
-nc.unirData(2011,2030,rutagen,"temp")
+nc.unirData(2011,2012,rutagen,"temp")
 #nc.getData(ruta,"temp")
